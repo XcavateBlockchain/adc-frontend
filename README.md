@@ -1,24 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ADC Interface
+
+A modern web interface built with Next.js 15, React 19, and TypeScript. This project uses the latest features of Next.js including the App Router and Turbopack for optimal development experience.
+
+## Tech Stack
+
+- **Framework**: Next.js 15.3.3
+- **Language**: TypeScript
+- **UI Components**: Custom components with Tailwind CSS
+- **Styling**: Tailwind CSS 4
+- **Package Manager**: pnpm 10.10.0
+- **Linting**: Biome
+- **Development**: Turbopack for faster builds
+
+## Prerequisites
+
+- Node.js (Latest LTS version recommended)
+- pnpm 10.10.0 or later
+
+## Environment Setup
+
+- Create a `.env` file in the root directory:
+```bash
+cp .env.example .env
+```
+
+Note: Never commit the `.env` file to version control. The `.env.example` file serves as a template for required environment variables.
 
 ## Getting Started
 
-First, run the development server:
-
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Run the development server:
+```bash
+pnpm dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Available Scripts
+
+- `pnpm dev` - Start the development server with Turbopack
+- `pnpm build` - Build the application for production
+- `pnpm start` - Start the production server
+- `pnpm lint` - Run Next.js linting
+- `pnpm lint:fix` - Run Biome to check and fix linting issues
+- `pnpm typecheck` - Run TypeScript type checking
+- `pnpm check` - Run both linting and type checking
+- `pnpm shadcn` - Run shadcn CLI for component management
+
+## Project Structure
+
+- `/app` - Next.js app directory containing pages and layouts
+- `/components` - Reusable React components
+- `/lib` - Utility functions and shared logic
+- `/constants` - Application constants and configuration
+- `/public` - Static assets
+- - `/.github` - GitHub configuration files
+- `/.vscode` - VS Code configuration
+
+## Development
+
+- Todo
+
+## Contributing
+
+1. Create a new branch for your feature
+2. Make your changes
+3. Run `pnpm check` to ensure code quality
+4. Submit a pull request
+
+## License
+
+This project is private and proprietary.
 
 ## Learn More
 

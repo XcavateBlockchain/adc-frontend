@@ -1,0 +1,24 @@
+{
+	// Set Biome (or another formatter) as the default
+	"editor.defaultFormatter": "biomejs.biome", // Replace with the correct extension ID
+
+	// Format on save (optional but recommended)
+	"editor.formatOnSave": true,
+
+	// Optional: Set tab size and insert spaces
+	"editor.tabSize": 2,
+	"editor.insertSpaces": true,
+	"tailwindCSS.includeLanguages": {
+		"plaintext": "html"
+	},
+	"tailwindCSS.experimental.classRegex": [
+		["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["tw=\"([^\"]*)\""]
+	],
+	"markdownlint.config": {
+		"MD033": {
+			"allowed_elements": ["img", "p", "a"]
+		}
+	}
+}
