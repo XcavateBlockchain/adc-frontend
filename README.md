@@ -1,4 +1,4 @@
-# ADC Interface
+#  AssetDIDcom Interface
 
 A modern web interface built with Next.js 15, React 19, and TypeScript. This project uses the latest features of Next.js including the App Router and Turbopack for optimal development experience.
 
