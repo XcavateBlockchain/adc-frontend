@@ -8,9 +8,11 @@ import {
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Icons from "@/components/icons";
-import { Checkbox } from "@radix-ui/react-checkbox";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const items = [
 	{
@@ -90,7 +92,15 @@ const items = [
 	},
 ];
 
-export default function CuratorBountyList() {
+interface CuratorListProps {
+	shouldShowNav?: boolean;
+	maxHeight?: string;
+}
+
+export default function CuratorBountyList({
+	shouldShowNav = false,
+	maxHeight = "[&>div]:max-h-[30vh]",
+}: CuratorListProps) {
 	return (
 		<div className="w-full max-w-[920px]">
 			<div className="mb-4.5 flex w-full items-center gap-[9px] text-sm">
@@ -98,7 +108,7 @@ export default function CuratorBountyList() {
 				<Separator className="max-w-[826px]" />
 			</div>
 
-			<div className="[&>div]:max-h-[30vh]">
+			<div className={cn(maxHeight)}>
 				<Table>
 					<TableHeader className="sticky top-0 z-10 bg-background/90 backdrop-blur-xs [&_tr]:border-b-0">
 						<TableRow className="border-y-0 *:border-border-0 hover:bg-transparent [&>:not(:last-child)]:border-r-0">
@@ -125,9 +135,9 @@ export default function CuratorBountyList() {
 										</div>
 									</TableCell>
 									<TableCell className="text-right">
-										<div className="relative flex items-center gap-3">
+										<div className=" flex w-full items-center justify-center gap-3">
 											<label htmlFor="terms">Manager</label>
-											<Checkbox id={item.name} />
+											<Checkbox id={item.name} defaultChecked={item.status} />
 										</div>
 									</TableCell>
 									<TableCell>
@@ -151,9 +161,13 @@ export default function CuratorBountyList() {
 				Add Curator
 			</Button>
 
-			<div className="flex items-center justify-center">
-				<Button>Continue</Button>
-			</div>
+			{shouldShowNav && (
+				<div className="flex items-center justify-center">
+					<Button asChild>
+						<Link href={"/1"}>Continue</Link>
+					</Button>
+				</div>
+			)}
 		</div>
 	);
 }
