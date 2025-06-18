@@ -1,4 +1,14 @@
-import { ChevronDown, UserRoundIcon, CircleX, MessageSquare, Plus } from "lucide-react";
+import {
+	ChevronDown,
+	UserRoundIcon,
+	CircleX,
+	MessageSquare,
+	Plus,
+	Info,
+	Calendar,
+	MoreHorizontal,
+} from "lucide-react";
+import { TemplateIcon, UserOutlineIcon } from "../layout/app-icons";
 
 const Icons = {
 	arrowDown: ChevronDown,
@@ -6,6 +16,11 @@ const Icons = {
 	message: MessageSquare,
 	circleX: CircleX,
 	add: Plus,
+	TemplateIcon,
+	UserOutlineIcon,
+	Info,
+	Calendar,
+	MoreHorizontal,
 };
 
 export type IconType = keyof typeof Icons;

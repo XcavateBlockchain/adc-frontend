@@ -7,7 +7,8 @@ const shellVariants = cva("", {
 	variants: {
 		variant: {
 			default:
-				"container relative mx-auto w-full max-w-screen-2xl space-y-6 px-4 py-[116px] lg:px-10 xl:px-15",
+				"container relative mx-auto w-full max-w-screen-2xl space-y-6 px-4 lg:mt-[160px] lg:px-10 xl:px-15",
+			tab: "container relative mx-auto flex w-full max-w-[920px] flex-col space-y-8 lg:py-5 xl:px-0",
 		},
 		// max-w-[1440px] mx-auto
 	},
