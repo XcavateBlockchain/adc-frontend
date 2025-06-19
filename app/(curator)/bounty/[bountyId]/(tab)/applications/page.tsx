@@ -3,8 +3,8 @@ import { Shell } from "@/components/shell";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import EventList from "./event-list";
 import ApplicationList from "./application-list";
+import EventList from "./event-list";
 
 export default function Applications() {
 	return (

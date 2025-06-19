@@ -1,4 +1,8 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 type Template = {
 	name: string;
@@ -50,12 +54,16 @@ export default function EventList() {
 }
 
 function EventListItem({ name, updated }: Template) {
+	const params = useParams<{ bountyId: string }>();
 	return (
-		<div className="grid grid-cols-[1fr_auto_auto_auto] gap-7 rounded-[8px] border px-4 py-2.5 shadow">
+		<Link
+			href={`/bounty/${params.bountyId}/event/${name}`}
+			className="grid grid-cols-[1fr_auto_auto_auto] gap-7 rounded-[8px] border px-4 py-2.5 shadow"
+		>
 			<div className="font-semibold">{name}</div>
 			<Badge>Badge</Badge>
 			<div className="text-sm">{updated}</div>
 			<div className="text-sm">{updated}</div>
-		</div>
+		</Link>
 	);
 }

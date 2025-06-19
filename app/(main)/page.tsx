@@ -1,5 +1,5 @@
-import { Shell } from "@/components/shell";
 import Icons from "@/components/icons";
+import { Shell } from "@/components/shell";
 import CuratorBountyList from "./components/curator-bounty-list";
 
 export default function Home() {

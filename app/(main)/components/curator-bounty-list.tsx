@@ -1,3 +1,8 @@
+import Icons from "@/components/icons";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
 import {
 	Table,
 	TableBody,
@@ -6,13 +11,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import Icons from "@/components/icons";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Checkbox } from "@/components/ui/checkbox";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const items = [
 	{
@@ -164,7 +164,7 @@ export default function CuratorBountyList({
 			{shouldShowNav && (
 				<div className="flex items-center justify-center">
 					<Button asChild>
-						<Link href={"/1"}>Continue</Link>
+						<Link href={"/bounty/1"}>Continue</Link>
 					</Button>
 				</div>
 			)}

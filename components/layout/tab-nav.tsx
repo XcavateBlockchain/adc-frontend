@@ -1,9 +1,9 @@
 "use client";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Icons from "../icons";
-import { useParams } from "next/navigation";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import Icons from "../icons";
 
 const items = [
 	{
@@ -45,7 +45,7 @@ export default function TabNav() {
 							className="after:-mb-1.5 relative flex cursor-pointer items-center gap-2 self-stretch px-8 py-3 font-medium text-[14px]/[20px] tracking-[0.1px] transition-all duration-200 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 hover:bg-white hover:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:hover:bg-white data-[state=active]:after:bg-primary"
 							asChild
 						>
-							<Link href={`/${params.bountyId}${item.path}`}>
+							<Link href={`/bounty/${params.bountyId}${item.path}`}>
 								<item.icon className="opacity-60" size={24} aria-hidden="true" />
 								{item.title}
 							</Link>
