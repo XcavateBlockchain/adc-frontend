@@ -1,3 +1,5 @@
+"use client";
+
 import Icons from "@/components/icons";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -13,6 +15,8 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useApp } from "@/context/app-context";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const items = [
 	{
@@ -101,6 +105,31 @@ export default function CuratorBountyList({
 	shouldShowNav = false,
 	maxHeight = "[&>div]:max-h-[30vh]",
 }: CuratorListProps) {
+	const { isLoading, bounty } = useApp();
+
+	if (isLoading) {
+		return (
+			<div className="mb-4 w-full max-w-[920px]">
+				<div className="grid w-full grid-cols-1 gap-4">
+					{Array.from({ length: 5 }, (_, i) => (
+						<div key={i} className="grid grid-cols-4 gap-4">
+							<Skeleton className="h-4 w-full rounded bg-gray-400" />
+							<Skeleton className="h-4 w-full rounded bg-gray-400" />
+
+							<Skeleton className="h-4 w-full rounded bg-gray-400" />
+
+							<Skeleton className="h-4 w-full rounded bg-gray-400" />
+						</div>
+					))}
+				</div>
+			</div>
+		);
+	}
+
+	if (!bounty) {
+		return null;
+	}
+
 	return (
 		<div className="w-full max-w-[920px]">
 			<div className="mb-4.5 flex w-full items-center gap-[9px] text-sm">
@@ -121,7 +150,7 @@ export default function CuratorBountyList({
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						{items.map((item) => {
+						{bounty?.curators.map((item) => {
 							return (
 								<TableRow key={item.id} className="border-dashed *:border-border">
 									<TableCell className="font-medium text-foreground">

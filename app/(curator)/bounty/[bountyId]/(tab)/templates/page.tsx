@@ -1,7 +1,11 @@
+"use client";
+
 import Icons from "@/components/icons";
 import { Shell } from "@/components/shell";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 type Template = {
 	name: string;
@@ -32,11 +36,14 @@ const items: Template[] = [
 ];
 
 export default function Templates() {
+	const params = useParams<{ bountyId: string }>();
 	return (
 		<Shell variant={"tab"}>
 			<div className="flex items-center justify-between ">
-				<Button>
-					<Icons.add /> New Template
+				<Button asChild>
+					<Link href={`/bounty/${params.bountyId}/form/new`}>
+						<Icons.add /> New Template
+					</Link>
 				</Button>
 
 				<div className="">
@@ -90,8 +97,13 @@ export default function Templates() {
 }
 
 function TemplateListItem({ name, response, updated }: Template) {
+	const params = useParams<{ bountyId: string }>();
+
 	return (
-		<div className="grid grid-cols-[1fr_auto_auto_auto] gap-7 rounded-[8px] border px-4 py-2.5 shadow">
+		<Link
+			href={`/bounty/${params.bountyId}/form/1`}
+			className="grid grid-cols-[1fr_auto_auto_auto] gap-7 rounded-[8px] border px-4 py-2.5 shadow"
+		>
 			<div className="font-semibold text-gray-900">{name}</div>
 			<div className="text-center text-gray-900 text-sm">{response}</div>
 			<div className="text-sm">{updated}</div>
@@ -101,6 +113,6 @@ function TemplateListItem({ name, response, updated }: Template) {
 					<span className="sr-only">More options</span>
 				</Button>
 			</div>
-		</div>
+		</Link>
 	);
 }

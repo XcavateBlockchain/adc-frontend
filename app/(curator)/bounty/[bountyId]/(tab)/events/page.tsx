@@ -2,7 +2,7 @@ import Icons from "@/components/icons";
 import { Shell } from "@/components/shell";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import ApplicationList from "./application-list";
+import EventList from "./event-list";
 
 export default function Applications() {
 	return (
@@ -16,7 +16,7 @@ export default function Applications() {
 			</div>
 			<Separator className="-mt-4" />
 
-			<ApplicationList />
+			<EventList />
 		</Shell>
 	);
 }

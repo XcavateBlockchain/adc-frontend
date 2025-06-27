@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { ConnectWalletButton } from "../wallet/inedx";
 
 export default function SiteHeader() {
 	return (
@@ -8,7 +8,8 @@ export default function SiteHeader() {
 				<Link href={"/"}>
 					<img src="/images/logo.svg" alt="logo" className="h-[30px] w-[143px]" />
 				</Link>
-				<Button>connect wallet</Button>
+				{/* <Button>connect wallet</Button> */}
+				<ConnectWalletButton />
 			</div>
 		</header>
 	);

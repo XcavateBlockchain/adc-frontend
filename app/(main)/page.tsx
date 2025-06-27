@@ -1,6 +1,7 @@
 import Icons from "@/components/icons";
 import { Shell } from "@/components/shell";
 import CuratorBountyList from "./components/curator-bounty-list";
+import SearchBounty from "./components/bounty-search";
 
 export default function Home() {
 	return (
@@ -9,10 +10,7 @@ export default function Home() {
 				<h1 className="font-black text-[40px]/[100%]">
 					Polkadot Bounty Application Review System
 				</h1>
-
-				<div className="flex w-full max-w-[326px] items-center justify-between rounded-[40px] border px-4 py-3 font-medium text-base/[24px]">
-					Select bounty <Icons.arrowDown className="ml-auto size-6" />
-				</div>
+				<SearchBounty />
 			</div>
 			<CuratorBountyList shouldShowNav />
 		</Shell>

@@ -4,6 +4,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import Icons from "../icons";
+import { Calendar } from "lucide-react";
 
 const items = [
 	{
@@ -20,6 +21,11 @@ const items = [
 		title: "Applications",
 		icon: Icons.message,
 		path: "/applications",
+	},
+	{
+		title: "Events",
+		icon: Calendar,
+		path: "/events",
 	},
 	{
 		title: "Notifications",

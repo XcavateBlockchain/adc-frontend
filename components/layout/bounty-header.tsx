@@ -1,17 +1,97 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "../ui/button";
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+import { useApp } from "@/context/app-context";
+import { ConnectWalletButton } from "../wallet/inedx";
+import { useWallet } from "@/context/wallet-context";
+import { useState } from "react";
+
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function BountyHeader() {
+	const { isConnected, bounty } = useApp();
 	return (
 		<header className=" w-full bg-background">
 			<div className="container mx-auto flex w-full max-w-screen-2xl items-center justify-between px-4 py-5 lg:px-10 xl:px-15">
 				<Link href={"/"} className=" flex items-center gap-1">
-					<span className="font-bold text-[28px]">EB</span>{" "}
+					<span className="font-bold text-[28px]">{bounty?.name}</span>{" "}
 					<span className="font-extralight text-[28px]">X</span>
 					<img src="/images/logo.svg" alt="logo" className="h-[30px] w-[143px]" />
 				</Link>
-				<Button>connect wallet</Button>
+				{isConnected ? <Component /> : <Bounty />}
 			</div>
 		</header>
+	);
+}
+
+function Bounty() {
+	const { setOpenWalletModal } = useWallet();
+	const [open, setOpen] = useState(false);
+	return (
+		<Dialog open={open} onOpenChange={setOpen}>
+			<DialogTrigger asChild>
+				<Button>CreateEvent</Button>
+			</DialogTrigger>
+
+			<DialogContent className="gap-0 p-0 px-[18px] py-10 sm:max-h-[361px] sm:max-w-[365px] sm:rounded-[8px]">
+				<DialogHeader className="mt-10 mb-3.5 gap-0.5">
+					<DialogTitle className="font-semibold text-[16px] sm:text-center">
+						Do you have an event bounty account?{" "}
+					</DialogTitle>
+					<DialogDescription className="text-[12px] sm:text-center">
+						You’ll have an account if you’ve previously organised a funded event.
+					</DialogDescription>
+				</DialogHeader>
+
+				<div className="flex flex-col items-center justify-center gap-2 pt-8">
+					<Button
+						onClick={() => {
+							setOpenWalletModal(true);
+							setOpen(false);
+						}}
+					>
+						Yes, I have an account
+					</Button>
+
+					<Button variant="outline" asChild>
+						<Link href={"/b/1/form"}>No, I need to create an account</Link>
+					</Button>
+				</div>
+			</DialogContent>
+		</Dialog>
+	);
+}
+
+export function Component() {
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button variant={"secondary"}>0x02a5...84aa</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className="pb-2">
+				<DropdownMenuItem
+					className="cursor-pointer py-1 focus:bg-transparent focus:underline"
+					asChild
+				>
+					<a href="/b/app//templates">Templates</a>
+				</DropdownMenuItem>
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 }
