@@ -1,21 +1,24 @@
 import { ApiPromise, HttpProvider, WsProvider } from "@polkadot/api";
-// import type { ApiOptions } from "@polkadot/api/types";
-import { cryptoWaitReady } from "@polkadot/util-crypto";
+import type { ApiOptions } from "@polkadot/api/types";
 
 /**
- * `Init Polkadot js`
- * Helper to initialize polkadot.js API with provided rpc.
+ * Helper to initialize polkadot.js API with given chain and options.
  */
-export async function initPolkadot(rpcUrl: string): Promise<ApiPromise> {
-	// Wait for crypto to be ready to prevent initialization issues
-	await cryptoWaitReady();
+export const initPolkadotJs = async (
+	rpcUrl: string,
+	options?: ApiOptions,
+): Promise<{ api: ApiPromise; provider: WsProvider | HttpProvider }> => {
+	if (!rpcUrl) {
+		throw new Error("Given chain has no RPC url defined");
+	}
 
 	const provider = rpcUrl.startsWith("http")
 		? new HttpProvider(rpcUrl)
 		: new WsProvider(rpcUrl);
 	const api = await ApiPromise.create({
 		provider,
+		...options,
 	});
 
-	return api;
-}
+	return { api, provider };
+};

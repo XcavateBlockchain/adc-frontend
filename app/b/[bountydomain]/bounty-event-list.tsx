@@ -1,3 +1,8 @@
+"use client";
+
+import Link from "next/link";
+import { useParams } from "next/navigation";
+
 interface EventType {
 	title: string;
 	date: string;
@@ -61,14 +66,19 @@ export default function EventBountyList() {
 }
 
 function EventListItem({ ...item }: EventType) {
+	const params = useParams<{ bountydomain: string }>();
+
 	return (
-		<div className="grid grid-cols-6 gap-7 rounded-[8px] border px-4 py-4.5 text-sm shadow">
+		<Link
+			href={`/b/${params.bountydomain}/bounty/${item.title}`}
+			className="grid grid-cols-6 gap-7 rounded-[8px] border px-4 py-4.5 text-sm shadow transition-colors duration-200 hover:border-gray-950"
+		>
 			<span className="font-semibold">{item.title}</span>
 			<span>{item.date}</span>
 			<span>{item.status}</span>
 			<span>{item.event}</span>
 			<span>{item.deadline}</span>
 			<span className="text-right">{item.curator}</span>
-		</div>
+		</Link>
 	);
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState, type ReactNode } from "react";
+import React, { useCallback, useEffect, useState, type ReactNode } from "react";
 import { AppContext, type AppContextType } from "@/context/app-context";
 import { bounties, type Bounty } from "@/constants/curators";
 
@@ -18,10 +18,23 @@ const AppProvider = ({ children }: AppProviderProps) => {
 		setIsLoading(true);
 		const timeout = setTimeout(() => {
 			const found = bounties.find((b) => b.name === bountyName) || null;
+			if (found?.name !== undefined) {
+				localStorage.setItem("bounty", found.name);
+			} else {
+				localStorage.removeItem("bounty");
+			}
 			setBounty(found);
 			setIsLoading(false);
 		}, 2000);
 		return () => clearTimeout(timeout);
+	}, []);
+
+	useEffect(() => {
+		const item = localStorage.getItem("bounty");
+		if (item) {
+			const found = bounties.find((b) => b.name === item) || null;
+			setBounty(found);
+		}
 	}, []);
 
 	const value: AppContextType = {

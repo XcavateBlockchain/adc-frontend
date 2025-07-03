@@ -8,7 +8,6 @@ export default function SiteHeader() {
 				<Link href={"/"}>
 					<img src="/images/logo.svg" alt="logo" className="h-[30px] w-[143px]" />
 				</Link>
-				{/* <Button>connect wallet</Button> */}
 				<ConnectWalletButton />
 			</div>
 		</header>

@@ -9,7 +9,7 @@ export type WalletContextType = {
 	isInitialized?: boolean;
 	isLoading?: boolean;
 	isConnected?: boolean;
-	error?: Error;
+	error?: WalletKitError;
 	api?: ApiPromise;
 	signer?: Signer;
 	connect: (wallet: Wallet) => Promise<void>;
@@ -34,3 +34,19 @@ export const useWallet = () => {
 	if (!context) throw new Error("useWallet must be used within a WalletProvider");
 	return context;
 };
+
+/**
+ * Helper Types
+ */
+
+// biome-ignore lint/style/useEnumInitializers: <explanation>
+export enum WalletKitErrorCodes {
+	InitializationError,
+	NoSubstrateExtensionDetected,
+	NoAccountInjected,
+}
+
+export interface WalletKitError {
+	code: WalletKitErrorCodes;
+	message: string;
+}

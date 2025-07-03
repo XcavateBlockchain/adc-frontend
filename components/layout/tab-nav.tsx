@@ -36,7 +36,7 @@ const items = [
 
 export default function TabNav() {
 	const params = useParams<{ bountyId: string }>();
-	console.log(params.bountyId);
+
 	return (
 		<Tabs
 			defaultValue={items[0].title}

@@ -15,9 +15,11 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Icons from "@/components/icons";
 import { useApp } from "@/context/app-context";
+import { useWallet } from "@/context/wallet-context";
 
 export default function SearchBounty() {
 	const id = useId();
+	const { isConnected } = useWallet();
 	const { bounties, bounty, selectBounty } = useApp();
 	const [open, setOpen] = useState<boolean>(false);
 
@@ -30,6 +32,7 @@ export default function SearchBounty() {
 					role="combobox"
 					aria-expanded={open}
 					className="flex w-full min-w-[326px] max-w-max items-center justify-between text-ellipsis rounded-[40px] px-4 py-3 font-medium text-base/[24px] outline-none outline-offset-0 focus-visible:outline-[3px]"
+					disabled={!isConnected}
 				>
 					{bounty ? (
 						<>
