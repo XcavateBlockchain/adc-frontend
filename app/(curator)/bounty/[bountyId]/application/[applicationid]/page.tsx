@@ -2,9 +2,8 @@ import Messages from "@/components/message";
 import Proposals from "@/components/proposals";
 import { Shell } from "@/components/shell";
 import Icons from "@/components/icons";
-import { ArrowLeft, ChevronRight, Link } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
 
 export default function EventPage() {
 	return (

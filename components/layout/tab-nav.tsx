@@ -2,9 +2,10 @@
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Icons from "../icons";
 import { Calendar } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const items = [
 	{
@@ -36,29 +37,58 @@ const items = [
 
 export default function TabNav() {
 	const params = useParams<{ bountyId: string }>();
+	const pathname = usePathname();
 
 	return (
-		<Tabs
-			defaultValue={items[0].title}
-			className="mt-[100px] flex items-center justify-center"
-		>
-			<TabsList className="mb-3 w-full max-w-[920px] rounded-none border-b-2 bg-[#F3F3F3] text-foreground">
+		// <Tabs
+		// 	defaultValue={items[0].title}
+		// 	className="mt-[100px] flex items-center justify-center"
+		// >
+		// 	<TabsList className="mb-3 w-full max-w-[920px] rounded-none border-b-2 bg-[#F3F3F3] text-foreground">
+		// 		{items.map((item) => {
+		// 			return (
+		// 				<TabsTrigger
+		// 					key={item.title}
+		// 					value={item.title}
+		// 					className={cn(
+		// 						"after:-mb-1.5 relative flex cursor-pointer items-center gap-2 self-stretch px-8 py-3 font-medium text-[14px]/[20px] tracking-[0.1px] transition-all duration-200 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 hover:bg-white hover:text-foreground ",
+		// 						{
+		// 							"data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:hover:bg-white data-[state=active]:after:bg-primary":
+		// 								pathname === item.path,
+		// 						},
+		// 					)}
+		// 					asChild
+		// 				>
+		// 					<Link href={`/bounty/${params.bountyId}${item.path}`}>
+		// 						<item.icon className="opacity-60" size={24} aria-hidden="true" />
+		// 						{item.title}
+		// 					</Link>
+		// 				</TabsTrigger>
+		// 			);
+		// 		})}
+		// 	</TabsList>
+		// </Tabs>
+		<div className="mt-[100px] flex w-full items-center justify-center">
+			<div className="mb-3 flex w-full max-w-[920px] items-center rounded-none border-b-2 bg-[#F3F3F3] text-foreground">
 				{items.map((item) => {
 					return (
-						<TabsTrigger
+						<Link
+							href={`/bounty/${params.bountyId}${item.path}`}
 							key={item.title}
-							value={item.title}
-							className="after:-mb-1.5 relative flex cursor-pointer items-center gap-2 self-stretch px-8 py-3 font-medium text-[14px]/[20px] tracking-[0.1px] transition-all duration-200 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 hover:bg-white hover:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:hover:bg-white data-[state=active]:after:bg-primary"
-							asChild
+							className={cn(
+								"after:-mb-[2px] relative flex w-full cursor-pointer items-center gap-2 self-stretch px-8 py-3 font-medium text-[14px]/[20px] tracking-[0.1px] transition-all duration-200 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 hover:bg-white hover:text-foreground ",
+								{
+									"bg-transparent after:bg-primary hover:bg-white":
+										pathname === `/bounty/${params.bountyId}${item.path}`,
+								},
+							)}
 						>
-							<Link href={`/bounty/${params.bountyId}${item.path}`}>
-								<item.icon className="opacity-60" size={24} aria-hidden="true" />
-								{item.title}
-							</Link>
-						</TabsTrigger>
+							<item.icon className="size-6 opacity-60" size={24} aria-hidden="true" />
+							{item.title}
+						</Link>
 					);
 				})}
-			</TabsList>
-		</Tabs>
+			</div>
+		</div>
 	);
 }

@@ -6,6 +6,7 @@ import {
 	MessageSquare,
 	MoreHorizontal,
 	Plus,
+	SendHorizonal,
 	UserRoundIcon,
 } from "lucide-react";
 import { TemplateIcon, UserOutlineIcon } from "../layout/app-icons";
@@ -21,6 +22,7 @@ const Icons = {
 	Info,
 	Calendar,
 	MoreHorizontal,
+	SendHorizonal,
 };
 
 export type IconType = keyof typeof Icons;
