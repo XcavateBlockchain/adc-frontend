@@ -4,25 +4,11 @@ import { Button } from "@/components/ui/button";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
-
-import { useTransition } from "react";
-import { z } from "zod";
-
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { useWallet } from "@/context/wallet-context";
 import Icons from "./icons";
 
-type Note = {
-	note_id: number;
-	client_id: number;
-	person_id: number;
-	note_text: string;
-	createdAt: any;
-	updatedAt: any;
-	person: any;
-};
-
 export default function Messages() {
+	const { isConnected } = useWallet();
 	return (
 		<div className="flex h-full flex-col space-y-4">
 			<div className="flex-1">
@@ -52,20 +38,22 @@ export default function Messages() {
 					</div>
 				</ScrollArea>
 			</div>
-			<div className="gap-6 pb-4">
-				<div className="flex w-full items-center gap-2 rounded-lg border border-foreground/[0.10] px-4 py-0 focus:outline-none">
-					<Textarea
-						placeholder="Write comment"
-						className="min-h-12 resize-none border-0 bg-transparent px-0 py-1 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-						maxLength={2000}
-					/>
-					<div className="flex gap-1 divide-x-2 px-1">
-						<Button variant={"ghost"} size={"icon"} type="submit">
-							<Icons.SendHorizonal className="size-6" />
-						</Button>
+			{isConnected && (
+				<div className="gap-6 pb-4">
+					<div className="flex w-full items-center gap-2 rounded-lg border border-foreground/[0.10] px-4 py-0 focus:outline-none">
+						<Textarea
+							placeholder="Write comment"
+							className="min-h-12 resize-none border-0 bg-transparent px-0 py-1 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+							maxLength={2000}
+						/>
+						<div className="flex gap-1 divide-x-2 px-1">
+							<Button variant={"ghost"} size={"icon"} type="submit">
+								<Icons.SendHorizonal className="size-6" />
+							</Button>
+						</div>
 					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 }

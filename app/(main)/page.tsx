@@ -1,7 +1,7 @@
 import Icons from "@/components/icons";
 import { Shell } from "@/components/shell";
-import CuratorBountyList from "./components/curator-bounty-list";
 import SearchBounty from "./components/bounty-search";
+import CuratorBountyList from "./components/curator-bounty-list";
 
 export default function Home() {
 	return (

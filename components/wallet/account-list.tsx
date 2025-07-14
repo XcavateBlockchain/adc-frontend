@@ -1,12 +1,12 @@
 import { DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useWallet } from "@/context/wallet-context";
-import WalletLoading from "./wallet-loading";
-import { ArrowLeftIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 import Identicon from "@polkadot/react-identicon";
 import type { WalletAccount } from "@talismn/connect-wallets";
-import { ScrollArea } from "../ui/scroll-area";
-import { cn } from "@/lib/utils";
+import { ArrowLeftIcon } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
+import { ScrollArea } from "../ui/scroll-area";
+import WalletLoading from "./wallet-loading";
 
 export default function AccountList() {
 	const { accounts } = useWallet();

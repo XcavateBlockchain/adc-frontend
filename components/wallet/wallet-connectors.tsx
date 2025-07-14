@@ -1,10 +1,10 @@
-import { isWalletInstalled, type Wallet } from "@talismn/connect-wallets";
-import { Button } from "../ui/button";
 import { DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import Link from "next/link";
-import { useWallet } from "@/context/wallet-context";
 import { useApp } from "@/context/app-context";
+import { useWallet } from "@/context/wallet-context";
+import { type Wallet, isWalletInstalled } from "@talismn/connect-wallets";
 import { ArrowLeftIcon } from "lucide-react";
+import Link from "next/link";
+import { Button } from "../ui/button";
 import WalletLoading from "./wallet-loading";
 
 export default function WalletConnectors() {

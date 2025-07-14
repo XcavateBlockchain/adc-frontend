@@ -33,7 +33,7 @@ export default function Form({ params }: { params: { bountydomain: string } }) {
 
 							<div className="mt-10 flex items-center justify-center">
 								<Button>
-									<Link href={`/b/${params.bountydomain}`}>Save</Link>
+									<Link href={`/www/${params.bountydomain}`}>Save</Link>
 								</Button>
 							</div>
 						</div>

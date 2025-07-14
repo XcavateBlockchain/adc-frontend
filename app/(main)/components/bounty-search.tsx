@@ -12,8 +12,8 @@ import {
 	CommandList,
 } from "@/components/ui/command";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Icons from "@/components/icons";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useApp } from "@/context/app-context";
 import { useWallet } from "@/context/wallet-context";
 

@@ -1,8 +1,10 @@
 import {
+	AlignJustify,
 	Calendar,
 	ChevronDown,
 	CircleX,
 	Info,
+	List,
 	MessageSquare,
 	MoreHorizontal,
 	Plus,
@@ -23,6 +25,8 @@ const Icons = {
 	Calendar,
 	MoreHorizontal,
 	SendHorizonal,
+	List,
+	AlignJustify,
 };
 
 export type IconType = keyof typeof Icons;

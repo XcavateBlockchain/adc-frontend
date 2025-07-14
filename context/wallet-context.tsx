@@ -2,7 +2,7 @@ import { walletList } from "@/constants/wallet-list";
 import { type ApiPromise, HttpProvider, WsProvider } from "@polkadot/api";
 import type { Signer } from "@polkadot/types/types";
 import type { Wallet, WalletAccount } from "@talismn/connect-wallets";
-import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
+import { type Dispatch, type SetStateAction, createContext, useContext } from "react";
 
 export type WalletContextType = {
 	isInitializing?: boolean;

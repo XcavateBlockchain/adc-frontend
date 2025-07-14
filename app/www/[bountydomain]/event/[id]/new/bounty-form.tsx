@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Label } from "@/components/ui/label";
 
-export default function BountyForm() {
+export default function BountyForm({ name }: { name?: string }) {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [formData, setFormData] = useState({
 		// Page 1 fields
@@ -65,7 +65,7 @@ export default function BountyForm() {
 		<div className="flex h-full w-full flex-col gap-11 rounded-[10px] border border-[#C5C5C5] px-12 py-10 shadow">
 			{/* Header */}
 
-			<h1 className="text-center mb-8">Extraordinary Events Template</h1>
+			<h1 className="mb-8 text-center font-semibold capitalize">{name}</h1>
 
 			<div className="space-y-6">
 				{currentPage === 1 && (
@@ -271,7 +271,7 @@ export default function BountyForm() {
 
 						<div className="space-y-2">
 							<Label className="font-semibold">Team</Label>
-							<Label className="text-sm text-gray-600">
+							<Label className="text-gray-600 text-sm">
 								Please describe every team member in detail with relevant information about
 								their roles and how they will contribute to the event, the required "must-have"
 								expertise, experience, skills necessary for the team
@@ -353,15 +353,15 @@ export default function BountyForm() {
 				)}
 
 				{/* Navigation */}
-				<div className="flex justify-between items-center pt-6 border-t">
+				<div className="flex items-center justify-between border-t pt-6">
 					<div className="flex items-center gap-2">
-						<span className="text-sm text-gray-500">Page {currentPage} of 2</span>
+						<span className="text-gray-500 text-sm">Page {currentPage} of 2</span>
 					</div>
 
 					<div className="flex gap-2">
 						{currentPage > 1 && (
 							<Button variant="outline" onClick={prevPage}>
-								<ChevronLeft className="w-4 h-4 mr-1" />
+								<ChevronLeft className="mr-1 h-4 w-4" />
 								Previous
 							</Button>
 						)}
@@ -369,7 +369,7 @@ export default function BountyForm() {
 						{currentPage < 2 ? (
 							<Button onClick={nextPage}>
 								Next
-								<ChevronRight className="w-4 h-4 ml-1" />
+								<ChevronRight className="ml-1 h-4 w-4" />
 							</Button>
 						) : (
 							<Button onClick={handleSubmit} className="bg-black text-white hover:bg-gray-800">

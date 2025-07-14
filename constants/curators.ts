@@ -73,3 +73,48 @@ export const bounties: Bounty[] = [
 		],
 	},
 ];
+
+export interface ITemplate {
+	id: number;
+	title: string;
+	image: string;
+	description?: string;
+	responses?: number;
+	updated: string;
+	active: boolean;
+}
+
+export const templates: ITemplate[] = [
+	{
+		id: 1,
+		title: "BD Template",
+		image: "",
+		responses: 50,
+		updated: "04 May 2025",
+		active: true,
+	},
+	{
+		id: 2,
+		title: "Extraordinary Event Template",
+		image: "",
+		responses: 50,
+		updated: "04 May 2025",
+		active: true,
+	},
+	{
+		id: 3,
+		title: "Key Event Template",
+		image: "",
+		responses: 50,
+		updated: "04 May 2025",
+		active: true,
+	},
+	{
+		id: 1,
+		title: "Meetups Template",
+		image: "",
+		responses: 50,
+		updated: "04 May 2025",
+		active: true,
+	},
+];

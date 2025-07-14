@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useCallback, useEffect, useState, type ReactNode } from "react";
+import { type Bounty, bounties } from "@/constants/curators";
 import { AppContext, type AppContextType } from "@/context/app-context";
-import { bounties, type Bounty } from "@/constants/curators";
+import React, { useCallback, useEffect, useState, type ReactNode } from "react";
 
 interface AppProviderProps {
 	children: ReactNode;

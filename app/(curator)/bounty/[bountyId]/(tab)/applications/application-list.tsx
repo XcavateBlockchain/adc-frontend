@@ -1,68 +1,73 @@
 "use client";
 
+import { CardBody, CardItem, CardList } from "@/components/card-list";
+import Icons from "@/components/icons";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { applicants } from "@/constants/applications";
+import { cn } from "@/lib/utils";
+import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-type Template = {
-	name: string;
-	response: number;
-	updated: string;
-	status?: boolean;
-};
-
-const items: Template[] = [
-	{
-		name: "Extraordinary Event",
-		response: 58,
-		updated: "08 May 2025",
-		status: true,
-	},
-	{
-		name: "Meetup",
-		response: 16,
-		updated: "08 May 2025",
-		status: false,
-	},
-	{
-		name: "Key Industry Event",
-		response: 26,
-		updated: "08 May 2025",
-		status: true,
-	},
-];
-
 export default function ApplicationList() {
-	return (
-		<div className="grid w-full gap-2">
-			<div className="grid grid-cols-[1fr_auto_auto] gap-16 px-4 font-light text-[#808080] text-xs">
-				<div />
-				<span>Status</span>
-				<span>Submitted</span>
-			</div>
-			{items.map((item) => (
-				<ApplicationListItem
-					key={item.name}
-					name={item.name}
-					response={item.response}
-					updated={item.updated}
-				/>
-			))}
-		</div>
-	);
-}
-
-function ApplicationListItem({ name, updated }: Template) {
 	const params = useParams<{ bountyId: string; applicationid: string }>();
-
 	return (
-		<Link
-			href={`/bounty/${params.bountyId}/application/${name.replace(/\s/g, "_")}`}
-			className="grid grid-cols-[1fr_auto_auto] gap-7 rounded-[8px] border px-4 py-2.5 shadow"
-		>
-			<div className="font-semibold">{name}</div>
-			<Badge>Badge</Badge>
-			<div className="text-sm">{updated}</div>
-		</Link>
+		<CardList className="space-y-3">
+			<CardBody variant={"title"}>
+				<CardItem col={6} align={"left"} />
+				<CardItem col={2}>Status</CardItem>
+				<CardItem col={3}>submitted</CardItem>
+				<CardItem />
+			</CardBody>
+			{applicants.map((applicant) => {
+				return (
+					<CardBody className="group" key={applicant.id}>
+						<CardItem className="flex items-center gap-2" col={6}>
+							<Icons.UserOutlineIcon className="size-6" />
+							<Link
+								href={`/bounty/${params.bountyId}/application/${applicant.id}`}
+								className="font-semibold text-base capitalize group-hover:underline"
+							>
+								{applicant.name} ({applicant.organization})
+							</Link>
+						</CardItem>
+						<CardItem col={2}>
+							<Badge
+								className={cn("p-2 capitalize", {
+									"bg-[#CD9282]/[0.16] text-[#CD9282]": applicant.status === "reviewing",
+									"bg-green-900/[0.16] text-green-900": applicant.status === "approved",
+									"bg-red-500/[0.16] text-red-500": applicant.status === "rejected",
+								})}
+							>
+								{applicant.status}
+							</Badge>
+						</CardItem>
+						<CardItem col={3}>{applicant.created}</CardItem>
+						<CardItem>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+										<MoreHorizontal className="h-4 w-4" />
+										<span className="sr-only">Open menu</span>
+									</Button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent align="end">
+									<DropdownMenuItem>Update</DropdownMenuItem>
+									<DropdownMenuItem>View Details</DropdownMenuItem>
+									<DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						</CardItem>
+					</CardBody>
+				);
+			})}
+		</CardList>
 	);
 }

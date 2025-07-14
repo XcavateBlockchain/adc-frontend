@@ -1,10 +1,10 @@
 import {
-	type Wallet,
+	EnkryptWallet,
+	PolkaGate,
 	PolkadotjsWallet,
 	SubWallet,
 	TalismanWallet,
-	EnkryptWallet,
-	PolkaGate,
+	type Wallet,
 } from "@talismn/connect-wallets";
 
 /**

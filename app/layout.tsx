@@ -2,8 +2,8 @@ import { fontRoboto, fontRobotoMono } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import "./globals.css";
-import WalletProvider from "@/providers/wallet-provider";
 import AppProvider from "@/providers/app-provider";
+import WalletProvider from "@/providers/wallet-provider";
 
 export const metadata: Metadata = {
 	title: "Create Next App",

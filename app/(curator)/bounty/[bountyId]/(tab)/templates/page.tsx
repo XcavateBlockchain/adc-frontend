@@ -4,45 +4,20 @@ import Icons from "@/components/icons";
 import { Shell } from "@/components/shell";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import TemplateView from "./components/template-list";
 
-type Template = {
-	name: string;
-	response: number;
-	updated: string;
-	status?: boolean;
-};
+interface IPageProps {
+	params: {};
+	searchParams: { view: string | undefined };
+}
 
-const items: Template[] = [
-	{
-		name: "Extraordinary Event",
-		response: 58,
-		updated: "08 May 2025",
-		status: true,
-	},
-	{
-		name: "Meetup",
-		response: 16,
-		updated: "08 May 2025",
-		status: false,
-	},
-	{
-		name: "Key Industry Event",
-		response: 26,
-		updated: "08 May 2025",
-		status: true,
-	},
-];
-
-export default function Templates() {
+export default function Templates({
+	searchParams,
+}: { searchParams: { view: string | undefined } }) {
 	const params = useParams<{ bountyId: string }>();
 	return (
 		<Shell variant={"tab"}>
@@ -53,45 +28,39 @@ export default function Templates() {
 					</Link>
 				</Button>
 
-				<div className="">
-					<Button variant={"outline"} className="rounded font-normal">
+				<div className="flex items-center gap-2.5">
+					<Button variant={"outline"} className="rounded py-[6px] font-normal">
 						<Icons.Calendar /> Date Created <Icons.arrowDown />
 					</Button>
+					<div className="flex items-center">
+						<Button
+							variant={"outline"}
+							className={cn("rounded rounded-r-[0px] border-r-0 py-[6px] font-normal", {
+								"bg-input/50": searchParams.view?.includes("list"),
+							})}
+							asChild
+						>
+							<Link href={"?view=list"}>
+								<Icons.List className="size-5" /> List
+							</Link>
+						</Button>
+						<Button
+							variant={"outline"}
+							className={cn("rounded rounded-l-[0px] border-l-0 py-[6px] font-normal", {
+								"bg-input/50": searchParams.view?.includes("grid"),
+							})}
+							asChild
+						>
+							<Link href={"?view=grid"}>
+								<Icons.AlignJustify className="size-5" /> Grid{" "}
+							</Link>
+						</Button>
+					</div>
 				</div>
 			</div>
 
 			<Separator className="-mt-4" />
-
-			<div className="grid w-full gap-2">
-				<div className="grid grid-cols-[1fr_auto_auto_auto] gap-7 px-4 font-light text-[#808080] text-xs">
-					<div />
-					<div className="">Responses</div>
-					<div className="">Updated</div>
-					<div className="w-8" />
-				</div>
-				<TemplateListItem
-					name="Event organizer application form"
-					response={60}
-					updated="08 May 2025"
-				/>
-			</div>
-
-			<div className="grid w-full gap-2">
-				<div className="grid grid-cols-[1fr_auto_auto_auto] gap-7 px-4 font-light text-[#808080] text-xs">
-					<div />
-					<div className="">Responses</div>
-					<div className="">Updated</div>
-					<div className="w-8" />
-				</div>
-				{items.map((item) => (
-					<TemplateListItem
-						key={item.name}
-						name={item.name}
-						response={item.response}
-						updated={item.updated}
-					/>
-				))}
-			</div>
+			<TemplateView bountyId={params.bountyId} />
 
 			{/* <div className="flex flex-col items-center justify-center gap-10 font-medium text-base/[24px]">
 				<p>You have not created any form</p>
@@ -118,40 +87,5 @@ export default function Templates() {
 				<TabsContent value="event">f</TabsContent>
 			</Tabs> */}
 		</Shell>
-	);
-}
-
-function TemplateListItem({ name, response, updated }: Template) {
-	const params = useParams<{ bountyId: string }>();
-	const avatar = `https://avatar.vercel.sh/${name.replace(/\s/g, "_")}?size=40`;
-
-	return (
-		<Link
-			href={`/bounty/${params.bountyId}/form/1`}
-			className="grid grid-cols-[1fr_auto_auto_auto] gap-7 rounded-[8px] border px-4 py-2.5 shadow"
-		>
-			<div className="flex items-center gap-1 font-semibold text-gray-900">
-				<img src={avatar} className=" size-10 rounded" />
-
-				{name}
-			</div>
-			<div className="text-center text-gray-900 text-sm">{response}</div>
-			<div className="text-sm">{updated}</div>
-			<div className="text-sm">
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant="ghost" size="sm" className="size-6 p-2">
-							<Icons.MoreHorizontal className="h-4 w-4" />
-							<span className="sr-only">More options</span>
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-						<DropdownMenuItem>Edit Template</DropdownMenuItem>
-						<DropdownMenuItem>Preview Template</DropdownMenuItem>
-						<DropdownMenuItem className="text-destructive">Delete Template</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
-			</div>
-		</Link>
 	);
 }

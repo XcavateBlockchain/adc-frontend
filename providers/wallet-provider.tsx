@@ -2,22 +2,22 @@
 
 import { dotenv } from "@/constants/dotenv";
 import { walletList } from "@/constants/wallet-list";
-import { initPolkadotJs } from "@/lib/polkadot";
-import type { ApiPromise, HttpProvider, WsProvider } from "@polkadot/api";
-import type { ApiOptions } from "@polkadot/api/types";
-import { type Wallet, type WalletAccount, isWalletInstalled } from "@talismn/connect-wallets";
-import { useState, type PropsWithChildren, useEffect, useCallback } from "react";
 import {
 	WalletContext,
 	type WalletKitError,
 	WalletKitErrorCodes,
 } from "@/context/wallet-context";
+import { initPolkadotJs } from "@/lib/polkadot";
+import type { ApiPromise, HttpProvider, WsProvider } from "@polkadot/api";
+import type { ApiOptions } from "@polkadot/api/types";
 import type { Unsubcall } from "@polkadot/extension-inject/types";
 import type { Signer } from "@polkadot/types/types";
+import { type Wallet, type WalletAccount, isWalletInstalled } from "@talismn/connect-wallets";
+import { type PropsWithChildren, useCallback, useEffect, useState } from "react";
 
 import ConnectWallet from "@/components/wallet/inedx";
-import AppProvider from "./app-provider";
 import { web3FromSource } from "@/lib/web3-from-source";
+import AppProvider from "./app-provider";
 
 export const LS_ACTIVE_ACCOUNT_ADDRESS = "activeAccountAddress";
 export const LS_ACTIVE_WALLET_NAME = "activeWalletName";
@@ -40,7 +40,7 @@ export default function WalletProvider({
 	const [isConnected, setIsConnected] = useState(false);
 	const [error, setError] = useState<WalletKitError | undefined>();
 	const [api, setApi] = useState<ApiPromise>();
-	const [provider, setProvider] = useState<WsProvider | HttpProvider>();
+	const [_provider, setProvider] = useState<WsProvider | HttpProvider>();
 	const [selectedWallet, setSelectedWallet] = useState<Wallet>();
 	const [accounts, setAccounts] = useState<WalletAccount[]>([]);
 	const [activeAccount, setActiveAccount] = useState<WalletAccount>();
@@ -220,46 +220,44 @@ export default function WalletProvider({
 
 	// Connect to injected wallet
 
-	const initializeWalletFromLocalStorage = async () => {
+	const initializeWalletFromLocalStorage = useCallback(async () => {
 		setIsLoading(true);
 
-		// Ensure API is initialized and connected
-		if (!api || !api.isConnected || !api.registry.chainSS58) {
-			await initialize();
-			if (!api?.isConnected) {
-				setIsLoading(false);
-				return;
-			}
-		}
-
 		try {
-			const wallet = web3FromSource();
-			setSelectedWallet(wallet);
-			setSigner(wallet?.signer);
+			// Only proceed if API is ready
+			if (!api?.isConnected) return;
 
+			const lastWalletName = localStorage.getItem(LS_ACTIVE_WALLET_NAME);
 			const lastActiveAccount = localStorage.getItem(LS_ACTIVE_ACCOUNT_ADDRESS);
 
-			if (lastActiveAccount) {
-				const accounts = await wallet?.getAccounts(api.registry.chainSS58 as any);
+			if (!lastWalletName) return;
+
+			const wallet = supportedWallets.find((w) => w.extensionName === lastWalletName);
+			if (!wallet) return;
+
+			setSelectedWallet(wallet);
+
+			// Enable wallet
+			await wallet.enable(appName);
+			setSigner(wallet.signer);
+
+			// Subscribe to accounts
+			unsubscribeAccounts?.();
+			const unsubscribe = await wallet.subscribeAccounts((accounts: WalletAccount[] = []) => {
 				setAccounts(accounts || []);
-				const foundAccount = accounts?.find(
-					(acc: WalletAccount) => acc.address === lastActiveAccount,
-				);
-				if (foundAccount) {
-					setActiveAccount(foundAccount);
-				} else if (accounts && accounts.length > 0) {
-					setActiveAccount(accounts[0]);
-				} else {
-					setActiveAccount(undefined);
-				}
-			}
+				let foundAccount = accounts.find((acc) => acc.address === lastActiveAccount);
+				if (!foundAccount && accounts.length > 0) foundAccount = accounts[0];
+				setActiveAccount(foundAccount);
+				setIsConnected(!!foundAccount);
+			});
+			setUnsubscribeAccounts(unsubscribe as any);
 		} catch (e) {
 			console.error("Failed to initialize wallet from local storage", e);
 			setError({ code: WalletKitErrorCodes.InitializationError, message: "" });
 		} finally {
 			setIsLoading(false);
 		}
-	};
+	}, [api, appName, supportedWallets, unsubscribeAccounts]);
 
 	const connect = async (wallet: Wallet) => {
 		setError(undefined);
@@ -380,8 +378,11 @@ export default function WalletProvider({
 	}, []);
 
 	useEffect(() => {
-		initializeWalletFromLocalStorage();
-	}, []);
+		if (api?.isConnected) {
+			initializeWalletFromLocalStorage();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [api?.isConnected]);
 
 	const contextValue = {
 		isInitializing,

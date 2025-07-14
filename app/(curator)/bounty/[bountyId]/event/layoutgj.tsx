@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 
-const items = [
+const _items = [
 	{
 		name: "Proposal",
 		path: "",

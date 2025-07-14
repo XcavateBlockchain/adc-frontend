@@ -1,14 +1,25 @@
+"use client";
+
+import Icons from "@/components/icons";
 import Messages from "@/components/message";
 import Proposals from "@/components/proposals";
 import { Shell } from "@/components/shell";
-import Icons from "@/components/icons";
-import { ArrowLeft, ChevronRight, Link } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { events } from "@/constants/eevents";
+import { ArrowLeft, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { use } from "react";
 
-export default function EventPage() {
+export default function EventPage({ params }: { params: Promise<{ eventId: string }> }) {
+	const router = useRouter();
+	const { eventId } = use(params);
+	const event = events.find((data) => data.id === Number(eventId));
 	return (
-		<div className="container relative mx-auto mt-10 w-full px-[100px]">
+		<Shell className="lg:mt-10">
+			<Button variant={"link"} onClick={() => router.back()}>
+				<ArrowLeft /> Back
+			</Button>
 			<Tabs
 				defaultValue="tab-1"
 				orientation="vertical"
@@ -37,9 +48,7 @@ export default function EventPage() {
 					</TabsList>
 				</div>
 				<div className="relative order-2 flex flex-1 flex-col">
-					<TabsContent value="tab-1">
-						<Proposals />
-					</TabsContent>
+					<TabsContent value="tab-1">{event && <Proposals {...event} />}</TabsContent>
 					<TabsContent value="tab-2">
 						<div className="grid grid-cols-3 gap-[25px]">
 							{["contract", "Document", "Sales"].map((item) => (
@@ -59,6 +68,6 @@ export default function EventPage() {
 					</TabsContent>
 				</div>
 			</Tabs>
-		</div>
+		</Shell>
 	);
 }

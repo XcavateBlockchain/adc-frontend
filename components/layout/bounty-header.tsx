@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "../ui/button";
 import {
 	Dialog,
 	DialogClose,
@@ -12,9 +10,11 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { useApp } from "@/context/app-context";
-import { ConnectWalletButton } from "../wallet/inedx";
 import { useWallet } from "@/context/wallet-context";
+import Link from "next/link";
 import { useState } from "react";
+import { Button } from "../ui/button";
+import { ConnectWalletButton } from "../wallet/inedx";
 
 import {
 	DropdownMenu,
@@ -26,7 +26,8 @@ import {
 import { useParams } from "next/navigation";
 
 export default function BountyHeader() {
-	const { isConnected } = useApp();
+	const { activeAccount, isConnected, setOpenWalletModal } = useWallet();
+
 	const params = useParams<{ bountydomain: string }>();
 	return (
 		<header className=" w-full bg-background">
@@ -45,6 +46,8 @@ export default function BountyHeader() {
 function Bounty() {
 	const { setOpenWalletModal } = useWallet();
 	const [open, setOpen] = useState(false);
+	const params = useParams<{ bountydomain: string }>();
+
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
@@ -72,7 +75,9 @@ function Bounty() {
 					</Button>
 
 					<Button variant="outline" asChild>
-						<Link href={"/b/1/form"}>No, I need to create an account</Link>
+						<Link href={`/www/${params.bountydomain}/form`}>
+							No, I need to create an account
+						</Link>
 					</Button>
 				</div>
 			</DialogContent>
@@ -81,6 +86,8 @@ function Bounty() {
 }
 
 export function Component() {
+	const params = useParams<{ bountydomain: string }>();
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -91,7 +98,7 @@ export function Component() {
 					className="cursor-pointer py-1 focus:bg-transparent focus:underline"
 					asChild
 				>
-					<a href="/b/app//templates">Templates</a>
+					<a href={`/www/${params.bountydomain}/profile`}>Profile</a>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

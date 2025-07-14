@@ -1,31 +1,21 @@
 "use client";
 
-import { useId, useState } from "react";
-import { ArrowLeftIcon, CircleAlertIcon, EllipsisVertical } from "lucide-react";
+import { EllipsisVertical } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-	Dialog,
-	DialogClose,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuLabel,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useApp } from "@/context/app-context";
 import { useWallet } from "@/context/wallet-context";
+import { formatAddress } from "@/lib/utils";
+import { Skeleton } from "../ui/skeleton";
 import AccountList from "./account-list";
 import WalletConnectors from "./wallet-connectors";
-import { useApp } from "@/context/app-context";
-import { Skeleton } from "../ui/skeleton";
-import { formatAddress } from "@/lib/utils";
 
 export const ConnectWalletButton = () => {
 	const { activeAccount, isConnected, setOpenWalletModal } = useWallet();
@@ -82,7 +72,7 @@ export function Component() {
 					className="cursor-pointer py-1 focus:bg-transparent focus:underline"
 					asChild
 				>
-					<a href={`/b/${bounty?.name}`}>view APP</a>
+					<a href={`/www/${bounty?.name}`}>view APP</a>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

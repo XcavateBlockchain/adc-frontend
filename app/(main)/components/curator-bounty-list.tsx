@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
 	Table,
 	TableBody,
@@ -13,12 +14,11 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { useApp } from "@/context/app-context";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useApp } from "@/context/app-context";
-import { Skeleton } from "@/components/ui/skeleton";
 
-const items = [
+const _items = [
 	{
 		id: "1",
 		name: "Alex Thompson",
