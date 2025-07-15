@@ -9,14 +9,63 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { events } from "@/constants/eevents";
+// import { events } from "@/constants/eevents";
+import { useApp } from "@/context/app-context";
 import { cn } from "@/lib/utils";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
 
 export default function EventList() {
+	const { events } = useApp();
 	const params = useParams<{ bountyId: string }>();
+
+	function onReject() {
+		const onLog = async () => {
+			return { status: "reject" };
+		};
+		return toast.promise(onLog, {
+			loading: "loading...",
+			success: "Success!",
+
+			error: (err) => {
+				console.log(err);
+				return null;
+			},
+		});
+	}
+
+	function onApprove() {
+		const onLog = async () => {
+			return { status: "reject" };
+		};
+		return toast.promise(onLog, {
+			loading: "loading...",
+			success: "Success!",
+
+			error: (err) => {
+				console.log(err);
+				return null;
+			},
+		});
+	}
+
+	function onReview() {
+		const onLog = async () => {
+			return { status: "reject" };
+		};
+		return toast.promise(onLog, {
+			loading: "loading...",
+			success: "Success!",
+
+			error: (err) => {
+				console.log(err);
+				return null;
+			},
+		});
+	}
+
 	return (
 		<CardList className="space-y-3">
 			<CardBody variant={"title"}>
@@ -66,9 +115,15 @@ export default function EventList() {
 									</Button>
 								</DropdownMenuTrigger>
 								<DropdownMenuContent align="end">
-									<DropdownMenuItem>Update</DropdownMenuItem>
-									<DropdownMenuItem>View Details</DropdownMenuItem>
-									<DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
+									<DropdownMenuItem className="text-orange-400" onClick={onReview}>
+										Reviewing
+									</DropdownMenuItem>
+									<DropdownMenuItem className="text-green-500" onClick={onApprove}>
+										Approve
+									</DropdownMenuItem>
+									<DropdownMenuItem className="text-destructive" onClick={onReject}>
+										Reject
+									</DropdownMenuItem>
 								</DropdownMenuContent>
 							</DropdownMenu>
 						</CardItem>

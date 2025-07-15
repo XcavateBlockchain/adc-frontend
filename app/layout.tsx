@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import AppProvider from "@/providers/app-provider";
 import WalletProvider from "@/providers/wallet-provider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -24,7 +25,10 @@ export default function RootLayout({
 					fontRobotoMono.variable,
 				)}
 			>
-				<WalletProvider appName="Asset DID COM">{children}</WalletProvider>
+				<WalletProvider appName="Asset DID COM">
+					{children}
+					<Toaster position="top-center" />
+				</WalletProvider>
 			</body>
 		</html>
 	);

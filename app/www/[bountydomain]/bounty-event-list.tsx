@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { events, type IEvent } from "@/constants/eevents";
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
@@ -90,7 +90,7 @@ function EventListItem({ ...item }: IEvent) {
 				</Badge>
 			</span>
 			<span>{item.submissionType}</span>
-			<span>{item.submittedAt}</span>
+			<span>{formatDate(item.submittedAt)}</span>
 			<span className="text-right">{item.submitterName}</span>
 		</Link>
 	);

@@ -23,7 +23,7 @@ export default function TabNav() {
 			path: `/bounty/${params.bountyId}/templates`,
 		},
 		{
-			title: "Applications",
+			title: "Applicants",
 			icon: Icons.message,
 			path: `/bounty/${params.bountyId}/applications`,
 		},

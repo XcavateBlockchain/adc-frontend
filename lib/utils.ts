@@ -15,3 +15,15 @@ export function formatAddress(address: string, charLength = 4) {
 	const suffix = address.substring(address.length - charLength); // Take last 4 characters
 	return `${prefix}...${suffix}`; // Combine with ellipsis in the middle
 }
+
+/**
+ * Formats an ISO date string into a human-readable date.
+ * @param isoDate - The ISO date string to format.
+ * @returns The formatted date string.
+ */
+export const formatDate = (isoDate: string): string =>
+	new Date(isoDate).toLocaleDateString("en-US", {
+		day: "2-digit",
+		month: "short",
+		year: "numeric",
+	});

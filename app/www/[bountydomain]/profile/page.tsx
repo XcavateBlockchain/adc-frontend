@@ -35,12 +35,12 @@ export default function ProfilePage({
 							>
 								Template
 							</TabsTrigger>
-							<TabsTrigger
+							{/* <TabsTrigger
 								value="tab-2"
 								className="w-full cursor-pointer rounded-[10px] px-4 py-[6px] font-medium data-[state=active]:bg-black data-[state=active]:text-white"
 							>
 								Application
-							</TabsTrigger>
+							</TabsTrigger> */}
 							<TabsTrigger
 								value="tab-3"
 								className="w-full cursor-pointer rounded-[10px] px-4 py-[6px] font-medium data-[state=active]:bg-black data-[state=active]:text-white"
@@ -53,9 +53,9 @@ export default function ProfilePage({
 						<TabsContent value="tab-1">
 							<Template id={bountydomain} />
 						</TabsContent>
-						<TabsContent value="tab-2">
+						{/* <TabsContent value="tab-2">
 							<BountyApplicationList />
-						</TabsContent>
+						</TabsContent> */}
 						<TabsContent value="tab-3">
 							<UserEventList />
 						</TabsContent>

@@ -7,7 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { use } from "react";
 import BountyLayout from "../../../components/bounty-layout";
-import BountyForm from "./bounty-form";
+import CreateEventFrom from "./create-event-from";
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
 	const router = useRouter();
@@ -21,7 +21,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 				<Button variant={"link"} onClick={() => router.back()}>
 					<ArrowLeft /> Back
 				</Button>
-				<BountyForm name={template?.title} />
+				{/* <BountyForm name={template?.title} /> */}
+				<CreateEventFrom template={template?.title} />
 			</Shell>
 		</BountyLayout>
 	);
